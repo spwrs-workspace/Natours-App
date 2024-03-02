@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import {login, logout} from './login';
+import {signUp} from './signUp';
 import { updateSettings } from './updateSettings';
 import {bookTour } from './stripe';
 import {displayMap} from './mapBox';
@@ -7,11 +8,13 @@ import {displayMap} from './mapBox';
 
 // Elements
 const loginForm = document.querySelector('.form--login');
+const signUpForm = document.querySelector('.form--signup');
 const mapBox= document.getElementById('map');
 const logOut= document.querySelector('.nav__el--logout');
 const updateDataForm= document.querySelector('.form-user-data');
 const updatePasswordForm= document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const submitButton = document.getElementById('submmit--btn');
 
 
 //delegations
@@ -25,6 +28,30 @@ if (loginForm)
       const password= document.getElementById('password').value;
       login(email, password);
     });
+  }
+
+  if(signUpForm){
+    signUpForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      submitButton.textContent = 'Signing Up...';
+
+
+      const name= document.getElementById('name').value;
+      const role= document.getElementById('role').value;
+      const email= document.getElementById('email').value;
+      const password= document.getElementById('password').value;
+      const passwordConfirm= document.getElementById('passwordConfirm').value;
+
+      const formData= {
+        name, role, email, password, passwordConfirm
+      }
+
+      console.log(formData);
+
+      signUp(formData);
+
+      
+    })
   }
 
   if(mapBox){

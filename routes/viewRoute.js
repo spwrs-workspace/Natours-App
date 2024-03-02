@@ -13,6 +13,7 @@ router.get('/', bookingController.createBookingCheckout, authController.isLogged
 router.get('/tour/:tourSlug', authController.isLoggedIn,  viewsController.getTour );
 
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
+router.get('/signup', viewsController.getSignUpForm);
 
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/my-tours', authController.protect, viewsController.getMyBookedTours);

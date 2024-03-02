@@ -40,6 +40,7 @@ const createAndSendToken= (user, statusCode, res)=>{
 
 exports.signup= catchAsync( async (req, res, next)=>{
 
+  // console.log('in the signup route in authcontroller')
   //const newUser=  await User.create(req.body);
   const newUser=  await User.create({
     name: req.body.name,
