@@ -1,4 +1,4 @@
-const { convert } = require('html-to-text')
+const { convert } = require('html-to-text');
 const nodemailer= require('nodemailer');
 const pug= require('pug');
 
@@ -14,14 +14,27 @@ module.exports= class Email{
     if(process.env.NODE_ENV==='production'){
       // sendgrid real emails
 
-      return nodemailer.createTransport({
-        service:'SendGrid',
-        auth:{
-          name: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASS
-        }
-      })
-    }
+    //   return nodemailer.createTransport({
+    //     service:'SendGrid',
+    //     auth:{
+    //       name: process.env.SENDGRID_USER,
+    //       pass: process.env.SENDGRID_PASS
+    //     }
+    //   })
+    // }
+
+
+    //google real emails
+
+    return nodemailer.createTransport({
+      host:process.env.MAIL_HOST,
+      auth:{
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+      }
+    })
+}
+
 
     //for development purpose
     return nodemailer.createTransport({
