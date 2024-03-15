@@ -46,7 +46,6 @@ if (loginForm)
         name, role, email, password, passwordConfirm
       }
 
-      console.log(formData);
 
       signUp(formData);
 
