@@ -12257,7 +12257,7 @@ var displayMap = exports.displayMap = function displayMap(locations) {
 
   var bounds = new mapboxgl.LngLatBounds();
   locations.forEach(function (loc) {
-    console.log(loc);
+    // console.log(loc);
     // Create marker
     var el = document.createElement('div');
     el.className = 'marker';
@@ -12462,7 +12462,6 @@ if (signUpForm) {
       password: password,
       passwordConfirm: passwordConfirm
     };
-    console.log(formData);
     (0, _signUp.signUp)(formData);
   });
 }
