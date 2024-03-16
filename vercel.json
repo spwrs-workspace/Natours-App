@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "./public/js/index.js",
+      "use": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundler.js"
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/" }],
+  "frameWork": null,
+  "installCommand": "npm install",
+  "public": "true"
+}
