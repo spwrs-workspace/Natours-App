@@ -8,5 +8,5 @@
   ],
   "routes": [{ "src": "/(.*)", "dest": "/" }],
   "installCommand": "npm install",
-  "public": "true"
+  "public": true
 }
