@@ -217,7 +217,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     //   message
     // })
 
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+    // const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
 
     await new Email(user, resetUrl).sendPasswordResetToken();
 
@@ -249,17 +250,33 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     .update(req.params.token)
     .digest('hex');
   //console.log(hashedToken);
+  // const user = await User.findOne({
+  //   passwordResetToken: hashedToken,
+  //   passwordResetExpires: { $gt: Date.now() },
+  // });
   const user = await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
+    passwordResetToken: hashedToken
   });
 
   //2)if not getting user log error
-
+  // console.log(user);
   if (!user) {
     return next(
-      new AppError('Invalid password reset token or it expired', 400),
+      new AppError('Invalid password reset token or it expired. Please try again', 400),
     );
+  }  
+  
+  // console.log(Date.parse(user.passwordResetExpires), Date.now());
+  if (Date.parse(user.passwordResetExpires)<Date.now()){
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save({validateBeforeSave: false});
+
+    return next(
+      new AppError('Invalid password reset token or it expired. Please try again', 400),
+    );
+
   }
 
   user.password = req.body.password;

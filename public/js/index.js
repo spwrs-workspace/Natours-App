@@ -4,7 +4,7 @@ import { signUp } from './signUp';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { displayMap } from './mapBox';
-import { forgotPassword } from './forgotPassword';
+import { forgotPassword , resetPassword} from './forgotPassword';
 
 // Elements
 const loginForm = document.querySelector('.form--login');
@@ -16,6 +16,7 @@ const updatePasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const submitButton = document.getElementById('submmit--btn');
 const forgotPasswordForm = document.querySelector('.form--forgot-password');
+const resetPasswordForm = document.querySelector('.form--reset-password');
 
 //delegations
 if (loginForm) {
@@ -111,5 +112,21 @@ if (forgotPasswordForm) {
     submitButton.textContent = 'Verifying...';
     const email = document.getElementById('email').value;
     forgotPassword(email);
+  });
+}
+if (resetPasswordForm) {
+  resetPasswordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitButton.textContent = 'Updating...';
+    
+    // Get the current URL
+    const currentUrl = window.location.href;
+
+    // Extract the token from the URL
+    const resetToken = currentUrl.split('/').pop(); // Assuming the token is the last part of the URL
+
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    resetPassword(password, passwordConfirm, resetToken);
   });
 }

@@ -22,7 +22,7 @@ router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignUpForm);
 
 router.get('/forgot-password', viewsController.getForgotpasswordForm);
-router.get('/reset-password', viewsController.getResetpasswordForm);
+router.get('/reset-password/:resetToken', viewsController.getResetpasswordForm);
 
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get(

@@ -9,9 +9,13 @@ header.header
       a.nav__el(href='/me')
         img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
         span= user.name.split(' ')[0]
+    else if(page==='resetPassword')
+
     else
       if (page==='signup')
         a.nav__el(href='/login') Log in
+      else if (page==='login' || page==='forgotPassword')
+        a.nav__el.nav__el--cta(href='/signup') Sign up
       else
         a.nav__el(href='/login') Log in
         a.nav__el.nav__el--cta(href='/signup') Sign up
