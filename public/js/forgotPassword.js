@@ -14,7 +14,10 @@ export const forgotPassword = async (email) => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'Password reset mail send successfully! Check your Gmail Account');
+      showAlert(
+        'success',
+        'Password reset mail send successfully! Check your Gmail Account',
+      );
 
       window.setTimeout(() => {
         location.assign('/');
@@ -26,14 +29,13 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (password, passwordConfirm, resetToken) => {
- 
   try {
     const res = await axios({
       method: 'PATCH',
       url: `http://127.0.0.1:3000/api/v1/users/resetPassword/${resetToken}`,
       data: {
         password,
-        passwordConfirm
+        passwordConfirm,
       },
     });
 
@@ -46,15 +48,18 @@ export const resetPassword = async (password, passwordConfirm, resetToken) => {
     }
   } catch (err) {
     console.log(err.response.data.message);
-    if(err.response.data.message==='Invalid password reset token or it expired. Please try again'){
+    if (
+      err.response.data.message ===
+      'Invalid password reset token or it expired. Please try again'
+    ) {
       showAlert('error', err.response.data.message);
       window.setTimeout(() => {
         location.assign('/forgot-password');
       }, 1500);
-    } else{
+    } else {
       // console.log("i am here")
       showAlert('error', err.response.data.message);
-      submitButton.textContent='Reset Password'
+      submitButton.textContent = 'Reset Password';
     }
   }
- };
+};
