@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "./public/js/index.js"
-    }
-  ],
   "routes": [{ "src": "/(.*)", "dest": "/" }],
   "installCommand": "npm install",
   "public": true
