@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const { promisify } = require('util');
-const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
@@ -13,12 +13,12 @@ const signToken = (id) => {
 };
 
 const cookieOptions = {
-  expires: new Date(
-    Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
-  ),
+  // expires: new Date(
+  //   Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+  // ),
   httpOnly: true,
 
-  // maxAge: 3600 * 1000,
+  maxAge: 3600 * 1000,
   //secure:true
 };
 
@@ -208,6 +208,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   //2) generate the password reset token
   const resetToken = user.createPasswordResetToken();
+  // console.log(resetToken);
   await user.save({
     validateBeforeSave: false,
   });
@@ -223,6 +224,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     // const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
     const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+    // console.log(resetUrl);
 
     await new Email(user, resetUrl).sendPasswordResetToken();
 
@@ -249,6 +251,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
   //1) Get the user from reset token and validate for the resetToken expirey
+  // console.log(req.params.token);
   const hashedToken = crypto
     .createHash('sha256')
     .update(req.params.token)

@@ -4,7 +4,7 @@ import { signUp } from './signUp';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { displayMap } from './mapBox';
-import { forgotPassword , resetPassword} from './forgotPassword';
+import { forgotPassword, resetPassword } from './forgotPassword';
 
 // Elements
 const loginForm = document.querySelector('.form--login');
@@ -118,15 +118,17 @@ if (resetPasswordForm) {
   resetPasswordForm.addEventListener('submit', (e) => {
     e.preventDefault();
     submitButton.textContent = 'Updating...';
-    
+
     // Get the current URL
     const currentUrl = window.location.href;
 
     // Extract the token from the URL
     const resetToken = currentUrl.split('/').pop(); // Assuming the token is the last part of the URL
+    // console.log(resetToken);
 
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
+
     resetPassword(password, passwordConfirm, resetToken);
   });
 }
