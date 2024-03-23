@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 //handling uncaught exceptions
-process.on("uncaughtException", err=>{
-  console.log("Uncaught Exception 🥺. Shutting Application...")
-  console.log(err.name, err.message)
+process.on('uncaughtException', (err) => {
+  console.log('Uncaught Exception 🥺. Shutting Application...');
+  console.log(err.name, err.message);
 
   process.exit(1);
-  
-})
+});
 
 const app = require('./app');
 
@@ -29,7 +28,7 @@ mongoose
 
 //console.log(app.get('env'));
 
-//console.log(process.env);
+console.log(process.env);
 
 // const testTour = new Tour({
 //   name: 'The Forest Hicker',
@@ -47,22 +46,18 @@ mongoose
 //   });
 
 const port = process.env.PORT;
-const server= app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 //handling unhandled rejections imp: use it as the safty nut at last and handle errors where they occurs
-process.on('unhandledRejection',err=>{
-  console.log("Unhandled Rejection 🥺. Shutting Application...")
-  console.log(err.name, err.message)
+process.on('unhandledRejection', (err) => {
+  console.log('Unhandled Rejection 🥺. Shutting Application...');
+  console.log(err.name, err.message);
 
   //gracefully closing the server so that pending requests and currently executing tasks should be completed first before server shudowns
 
-  server.close(()=>{
+  server.close(() => {
     process.exit(1);
-  })
-})
-
-
-
-
+  });
+});
