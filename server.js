@@ -29,7 +29,7 @@ mongoose
 
 //console.log(app.get('env'));
 
-console.log(process.env);
+// console.log(process.env);
 
 // const testTour = new Tour({
 //   name: 'The Forest Hicker',

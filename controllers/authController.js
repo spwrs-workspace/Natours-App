@@ -13,8 +13,9 @@ const signToken = (id) => {
 };
 
 const cookieOptions = {
-  expires: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+  // expires: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
   httpOnly: true,
+  maxAge: 3600 * 1000,
   //secure:true
 };
 
@@ -255,28 +256,33 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   //   passwordResetExpires: { $gt: Date.now() },
   // });
   const user = await User.findOne({
-    passwordResetToken: hashedToken
+    passwordResetToken: hashedToken,
   });
 
   //2)if not getting user log error
   // console.log(user);
   if (!user) {
     return next(
-      new AppError('Invalid password reset token or it expired. Please try again', 400),
+      new AppError(
+        'Invalid password reset token or it expired. Please try again',
+        400,
+      ),
     );
-  }  
-  
+  }
+
   // console.log(Date.parse(user.passwordResetExpires), Date.now());
-  if (Date.parse(user.passwordResetExpires)<Date.now()){
+  if (Date.parse(user.passwordResetExpires) < Date.now()) {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
 
-    await user.save({validateBeforeSave: false});
+    await user.save({ validateBeforeSave: false });
 
     return next(
-      new AppError('Invalid password reset token or it expired. Please try again', 400),
+      new AppError(
+        'Invalid password reset token or it expired. Please try again',
+        400,
+      ),
     );
-
   }
 
   user.password = req.body.password;
