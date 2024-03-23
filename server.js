@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 //handling uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.log('Uncaught Exception 🥺. Shutting Application...');
+  console.log(err);
   console.log(err.name, err.message);
 
   process.exit(1);
