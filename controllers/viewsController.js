@@ -4,6 +4,7 @@ const Booking = require('../models/bookingModel');
 
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const ApiFeatures = require('../utils/apiFeatures');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   //1) get the tours data from the collection
@@ -14,6 +15,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   //3) render the template with the tour data from step 1)
   res.status(200).render('overview', {
     title: 'All Tours',
+    page: 'overview',
     tours,
   });
 });
@@ -41,7 +43,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {
     title: 'Log into your Account',
-    page: 'login'
+    page: 'login',
   });
 };
 
@@ -61,14 +63,14 @@ exports.getAccount = (req, res) => {
 exports.getForgotpasswordForm = (req, res) => {
   res.status(200).render('forgotPassword', {
     title: 'Forgot Password',
-    page:'forgotPassword'
+    page: 'forgotPassword',
   });
 };
 
 exports.getResetpasswordForm = (req, res) => {
   res.status(200).render('resetPassword', {
     title: 'Reset Password',
-    page:'resetPassword'
+    page: 'resetPassword',
   });
 };
 
@@ -105,3 +107,23 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
     user: updatedUser,
   });
 });
+
+exports.getTop5CheapTours = async (req, res) => {
+  let filter = {};
+  if (req.params.tourId) filter = { tour: req.params.tourId };
+
+  const features = new ApiFeatures(Tour.find(filter), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  //const docs = await features.query.explain();
+  const tours = await features.query;
+
+  // console.log(tours);
+
+  res.status(200).render('overview', {
+    title: 'Top 5️⃣ Cheap',
+    tours,
+  });
+};

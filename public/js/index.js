@@ -5,6 +5,7 @@ import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { displayMap } from './mapBox';
 import { forgotPassword, resetPassword } from './forgotPassword';
+import { getTop5CheapTours } from './features';
 
 // Elements
 const loginForm = document.querySelector('.form--login');
@@ -17,6 +18,7 @@ const bookBtn = document.getElementById('book-tour');
 const submitButton = document.getElementById('submmit--btn');
 const forgotPasswordForm = document.querySelector('.form--forgot-password');
 const resetPasswordForm = document.querySelector('.form--reset-password');
+const top5cheap = document.getElementById('top5cheap');
 
 //delegations
 if (loginForm) {
@@ -132,3 +134,5 @@ if (resetPasswordForm) {
     resetPassword(password, passwordConfirm, resetToken);
   });
 }
+
+if (top5cheap) top5cheap.addEventListener('click', getTop5CheapTours);

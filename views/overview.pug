@@ -3,6 +3,14 @@ extends base
 block content
 
   main.main
+
+    if(page == 'overview')
+      .card-features
+        .card-container
+          a.btn.button--feature.btn--small Tours Near Me 🌏
+          a.btn.button--feature.btn--small(href='/top-5-cheap') Best Selling 🤠 
+          a.btn.button--feature.btn--small Distance From A Point 👽 
+
     .card-container
 
       each tour in tours
