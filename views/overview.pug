@@ -7,9 +7,17 @@ block content
     if(page == 'overview')
       .card-features
         .card-container
-          a.btn.button--feature.btn--small Tours Near Me 🌏
-          a.btn.button--feature.btn--small(href='/top-5-cheap') Best Selling 🤠 
-          a.btn.button--feature.btn--small Distance From A Point 👽 
+          .btn.button--feature.btn--small#tours-near-me(style='font-weight:bold') 🌏 Tours Near You 🌏
+          a.btn.button--feature.btn--small(href='/best-selling', style='font-weight:bold') 💵 Best Selling Tours 💵 
+          .btn.button--feature.btn--small#distance-from-point(style='font-weight:bold') 📍 Tour Distances from You 📍
+
+    
+    if( page=='top5')
+      p(style='text-align:center; margin-bottom:7rem; font-size: 5rem; font-weight: bold; background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));color:#ffffff') Top Five Tours From Our Collection
+
+    if(page=='Tours-Near-Me')
+      p(style='text-align:center; margin-bottom:7rem; font-size: 5rem; font-weight: bold; background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));color:#ffffff') Your Backyard Wonders
+
 
     .card-container
 

@@ -28,7 +28,7 @@ router.get('/reset-password/:resetToken', viewsController.getResetpasswordForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 
 router.get(
-  '/top-5-cheap',
+  '/best-selling',
   tourController.aliasTopTours,
   viewsController.getTop5CheapTours,
 );
@@ -44,5 +44,12 @@ router.post(
   authController.protect,
   viewsController.updateUserData,
 );
+
+router.get(
+  '/tours-within/:distance/center/:latlng/unit/:unit',
+  viewsController.getAllToursWithin,
+);
+
+router.get('/distances/:latlng/unit/:unit', viewsController.getDistances);
 
 module.exports = router;

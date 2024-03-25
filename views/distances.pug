@@ -1,0 +1,36 @@
+extends base
+
+block content
+
+  main.main 
+
+    p(style='text-align:center; margin-bottom:7rem; font-size: 5rem; font-weight: bold; background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));color:#ffffff') Tours Around the Corner
+
+    .card-container
+
+      each tour in tours
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+            h3.heading-tertirary
+              span= tour.name
+
+
+          .card__footer
+            p
+              span.card__footer-value(style='margin-top: 15rem')= `${Math.round(tour.distance)}`
+              | 
+              span.card__footer-text miles
+
+            p.card__ratings
+              //- span.card__footer-value
+              //- | 
+              //- span.card__footer-text
+            
+            
+            a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
+
+          
+

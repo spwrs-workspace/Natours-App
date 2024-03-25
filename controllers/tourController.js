@@ -248,6 +248,7 @@ exports.getDistances = catchAsync(async (req, res, next) => {
       $project: {
         name: 1,
         distance: 1,
+        imageCover: 1,
       },
     },
   ]);

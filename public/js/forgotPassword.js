@@ -47,7 +47,7 @@ export const resetPassword = async (password, passwordConfirm, resetToken) => {
       }, 1500);
     }
   } catch (err) {
-    console.log(err.response.data.message);
+    // console.log(err.response.data.message);
     if (
       err.response.data.message ===
       'Invalid password reset token or it expired. Please try again'

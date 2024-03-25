@@ -124,6 +124,76 @@ exports.getTop5CheapTours = async (req, res) => {
 
   res.status(200).render('overview', {
     title: 'Top 5️⃣ Cheap',
+    page: 'top5',
     tours,
   });
 };
+
+exports.getAllToursWithin = catchAsync(async (req, res, next) => {
+  const { distance, latlng, unit } = req.params;
+  const [lat, lng] = latlng.split(',');
+  // console.log(latlng);
+  const radius = unit === 'mi' ? distance / 3963.2 : distance / 6378.1;
+
+  if (!lat || !lng) {
+    return new AppError(
+      'provide latitude and longitude in the form lat, lng',
+      400,
+    );
+  }
+
+  //console.log(distance, lat, lng, unit);
+  const tours = await Tour.find({
+    startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
+  });
+
+  // console.log(tours);
+
+  res.status(200).render('overview', {
+    title: 'Tours Near Me',
+    page: 'Tours-Near-Me',
+    tours,
+  });
+});
+
+exports.getDistances = catchAsync(async (req, res, next) => {
+  const { latlng, unit } = req.params;
+  const [lat, lng] = latlng.split(',');
+  const multiplier = unit === 'mi' ? 0.000621371 : 0.001;
+
+  if (!lat || !lng) {
+    return new AppError(
+      'provide latitude and longitude in the form lat, lng',
+      400,
+    );
+  }
+
+  const tours = await Tour.aggregate([
+    {
+      $geoNear: {
+        near: {
+          type: 'Point',
+          coordinates: [lng * 1, lat * 1],
+        },
+
+        distanceField: 'distance',
+        distanceMultiplier: multiplier,
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        distance: 1,
+        imageCover: 1,
+        slug: 1,
+      },
+    },
+  ]);
+
+  // console.log(tours);
+
+  res.status(200).render('distances', {
+    title: 'Tour Distances',
+    tours,
+  });
+});

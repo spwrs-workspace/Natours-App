@@ -269,11 +269,12 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));
 }
 
 .button--feature:hover {
   background-color: #444;
-  color: #fff;
+  color: #0d172a;
 }
 
 @media (min-width: 768px) {
@@ -1231,6 +1232,7 @@ body {
 .card__footer-value {
   font-weight: 700;
 }
+
 .card__footer-text {
   color: #999;
 }
