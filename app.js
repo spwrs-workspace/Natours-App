@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(helmet());
 app.use(helmet({ contentSecurityPolicy: false }));
 
-//logging to development
+//logging to development (Morgen is used to set logs in console)
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }

@@ -64,6 +64,7 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
 
   this.passwordConfirm = undefined;
+  next();
 });
 
 userSchema.pre('save', function (next) {
@@ -80,6 +81,7 @@ userSchema.pre('find', function (next) {
   next();
 });
 
+// Instence Methods --> Avaliable on all insances of model
 userSchema.methods.correctPassword = async function (
   candidatePassword,
   password,

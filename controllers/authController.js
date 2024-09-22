@@ -182,11 +182,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   //manipulating req object so that we can acheive authorization in future by using users role
   req.user = freshUser;
   res.locals.user = freshUser;
+
+  // IF PASSES THROUGH ALL GRANT ACCESS TO NEXT
   next();
 });
 
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
+exports.restrictTo = (...roles) => (req, res, next) => {
     //roles will be array
 
     if (!roles.includes(req.user.role)) {
@@ -195,7 +196,6 @@ exports.restrictTo = (...roles) => {
 
     next();
   };
-};
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   //1) get the user from email

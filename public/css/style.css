@@ -1172,7 +1172,7 @@ body {
     from(#7dd56f),
     to(#28b487)
   );
-  background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
+  background-image: linear-gradient(to right bottom, #cadcd6, #000000);
   opacity: 0.7;
 }
 .card__picture-img {
@@ -1379,4 +1379,29 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+
+.manage-tour {
+  background-color: #2e864b;
+  padding: 5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  color: #fcfcfc;
+  font-size: larger;
+  padding: 2rem;
+  height: 8rem;
+}
+
+.edit {
+  padding-left: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+body {
+  margin: 2em;
+}
+td:last-child {
+  text-align: center;
 }
